@@ -39,3 +39,86 @@ Linux 2.6.18-194.el5PAE (dev-db)        03/26/2011      _i686_  (8 CPU)
 </p>
 </details>
 ------
+
+> Q. How do I collect JVM data for troubleshooting - stack trace?
+<details><summary>Ans.</summary>
+<p>
+
+```
+Collect thread dump or stack trace.
+
+kill -3 pid
+
+PID=<pid>;jstack -F -l ${PID} > $(date +"%Y%m%d%H%M%S")_jstack_${PID}.log
+```
+</p>
+</details>
+------
+
+> Q. How do I collect JVM data for troubleshooting - stack trace?
+<details><summary>Ans.</summary>
+<p>
+
+```
+Collect thread dump or stack trace.
+
+kill -3 pid
+
+PID=<pid>;jstack -F -l ${PID} > $(date +"%Y%m%d%H%M%S")_jstack_${PID}.log
+
+jcmd <pid> Thread.print > <file-path>
+
+jvisualVM has option to do thread dump on screen
+
+https://blog.fastthread.io/2016/06/06/how-to-take-thread-dumps-7-options/
+```
+</p>
+</details>
+------
+
+> Q. How do I collect JVM data for troubleshooting - heap dumps/heap histograms?
+<details><summary>Ans.</summary>
+<p>
+
+```
+For heap historgrams try:
+jmap -histo:live <pid>
+
+For heap dumps try
+jmap -dump:live,format=b,file=/tmp/dump.hprof 12587
+jmap -dump:format=b,file=c:\temp\HeapDump.hprof <pid>
+
+jcmd <pid> GC.heap_dump <file-path>
+
+java -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=<file-or-dir-path>
+https://www.baeldung.com/java-heap-dump-capture
+```
+</p>
+</details>
+------
+
+> Q. How to find current jvm settings?
+<details><summary>Ans.</summary>
+<p>
+
+```
+jinfo <pid>
+
+```
+</p>
+</details>
+------
+
+
+> Q. How to print garbage collection logs?
+<details><summary>Ans.</summary>
+<p>
+
+```
+
+-Xloggc:<confluence-home>/logs/`date +%F_%H-%M-%S`-gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCCause
+-XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=5M
+```
+</p>
+</details>
+------
