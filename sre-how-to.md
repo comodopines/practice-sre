@@ -1,15 +1,20 @@
-> Q. What is a working directory?
+> Q. How to find high CPU Utilization?
 <details><summary>Ans.</summary>
 <p>
 
 ```
-It is the directory from where "git init" was run.
-If "git init" was run from within "/apps/myDir" then "/apps/myDir/" is working directory.
-$ pwd
-/apps/
-$ mkdir myDir
-$ cd /apps/myDir
-$ git init
+Using top command
+Using vmstat
+Using sar
+
+Example:
+top -n 1 -H -p <pid>
+
+Example:
+vmstat 1 20
+
+Example:
+
 ```
 </p>
 </details>
