@@ -122,3 +122,29 @@ jinfo <pid>
 </p>
 </details>
 ------
+
+
+> Q. How to set various JVM options?
+<details><summary>Ans.</summary>
+<p>
+
+```
+-Xms	For setting the initial heap size when JVM starts
+
+-Xmx	For setting the maximum heap size.
+
+-Xmn	For setting the size of the Young Generation, rest of the space goes for Old Generation.
+
+-XX:PermGen	For setting the initial size of the Permanent Generation memory
+
+-XX:MaxPermGen	For setting the maximum size of Perm Gen
+
+-XX:SurvivorRatio	For providing ratio of Eden space and Survivor Space, 
+for example if Young Generation size is 10m and VM switch is -XX:SurvivorRatio=2 
+then 5m will be reserved for Eden Space and 2.5m each for both the Survivor spaces. The default value is 8.
+Ratio of 8 means 1:1:8 each survior space is 1/10th of total. 1/10 + 1/10 + 8/10 (or 1:8 between survivor and eden)
+
+-XX:NewRatio	For providing ratio of old/new generation sizes. The default value is 2.```
+</p>
+</details>
+------
