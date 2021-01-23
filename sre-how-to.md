@@ -157,7 +157,7 @@ Ratio of 8 means 1:1:8 each survior space is 1/10th of total. 1/10 + 1/10 + 8/10
 ```
 jstat -gc <pid> <time in ms>
 
-pankaj@Pankaj:~$ jstat -gc 9582 1000
+xxxx@xxxx:~$ jstat -gc 9582 1000
  S0C    S1C    S0U    S1U      EC       EU        OC         OU       PC     PU        YGC     YGCT    FGC    FGCT     GCT
 1024.0 1024.0  0.0    0.0    8192.0   7933.3   42108.0    23401.3   20480.0 19990.9    157    0.274  40      1.381    1.654
 1024.0 1024.0  0.0    0.0    8192.0   8026.5   42108.0    23401.3   20480.0 19990.9    157    0.274  40      1.381    1.654
