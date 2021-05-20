@@ -35,6 +35,20 @@ Linux 5.4.79-v7l+ (raspberrypi) 	05/20/2021 	_armv7l_	(4 CPU)
 </details>
 ------
 
+> Q. Where does vmstat pick blocked and running process stats from?
+<details><summary>Ans.</summary>
+<p>
+
+```
+ $ awk '{print $3}' /proc/*/stat | sort -n | uniq
+ 
+```
+</p>
+</details>
+------
+
+
+
  > Q. How does runq-sz or "r" relate to load on system and how do you check system load?
 <details><summary>Ans.</summary>
 <p>
