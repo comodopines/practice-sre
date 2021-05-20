@@ -44,10 +44,18 @@ Linux 5.4.79-v7l+ (raspberrypi) 	05/20/2021 	_armv7l_	(4 CPU)
  Load average can be checked via following commands:
  
  1) uptime
+ 
  $uptime
- 15:10:24 up 1 day, 23:32,  2 users,  load average: <b>0.70, 0.82, 1.02</b>
+ 15:10:24 up 1 day, 23:32,  2 users,  load average: 0.70, 0.82, 1.02
 
  2) top
+ 
+ top - 16:46:58 up 2 days,  1:09,  2 users,  load average: 1.12, 0.47, 0.17
+ Tasks: 205 total,   1 running, 204 sleeping,   0 stopped,   0 zombie
+ %Cpu(s):  2.4 us,  2.7 sy,  0.0 ni, 94.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+ MiB Mem :   7875.9 total,   5055.7 free,   1662.7 used,   1157.5 buff/cache
+ MiB Swap:    100.0 total,    100.0 free,      0.0 used.   5321.5 avail Mem 
+
  3) sar
  
  $ sar -q 1 5
@@ -60,9 +68,10 @@ Linux 5.4.79-v7l+ (raspberrypi) 	05/20/2021 	_armv7l_	(4 CPU)
 02:59:30 PM         0       781      1.05      1.96      1.42         0
 02:59:31 PM         0       780      1.05      1.96      1.42         0
 
-"runq-sz - Run queue length (number of tasks waiting for run time)" and 
- "plist-sz Number of tasks in the task list."
--------
+run queue size reported by sar can be 0 if the process is in un-interruptable sleep "D"
+Check un-interruptable sleep process as they will be eating cpu usage (load average) even though there aren't anything to run.
+
+ps -Leo state,pid,args | grep '^[RD]' 
 
 ```
 </p>
