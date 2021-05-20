@@ -25,7 +25,7 @@ Linux 5.4.79-v7l+ (raspberrypi) 	05/20/2021 	_armv7l_	(4 CPU)
 02:59:30 PM         0       781      1.05      1.96      1.42         0
 02:59:31 PM         0       780      1.05      1.96      1.42         0
 
-Look at "runq-sz"
+Look at "runq-sz - Run queue length (number of tasks waiting for run time)" and "plist-sz Number of tasks in the task list."
 -------
 
 ```
