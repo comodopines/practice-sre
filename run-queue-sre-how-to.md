@@ -45,7 +45,7 @@ Linux 5.4.79-v7l+ (raspberrypi) 	05/20/2021 	_armv7l_	(4 CPU)
  
  1) uptime
  $uptime
- 15:10:24 up 1 day, 23:32,  2 users,  load average: **0.70, 0.82, 1.02**
+ 15:10:24 up 1 day, 23:32,  2 users,  load average: <b>0.70, 0.82, 1.02</b>
 
  2) top
  3) sar
