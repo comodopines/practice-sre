@@ -77,3 +77,47 @@ ps -Leo state,pid,args | grep '^[RD]'
 </p>
 </details>
 ------
+
+> Q. What is blocked queue in vmstat output?
+<details><summary>Ans.</summary>
+<p>
+
+```
+ $ vmstat -SM -w 1 5
+ procs -----------------------memory---------------------- ---swap-- -----io---- -system-- --------cpu--------
+ r  b         swpd         free         buff        cache   si   so    bi    bo   in   cs  us  sy  id  wa  st
+ 1  0            0         6485           53          642    0    0     1     0   24   13   0   0 100   0   0
+ 0  0            0         6478           53          649    0    0     0     0  265  288   0   1  99   0   0
+ 0  0            0         6478           53          649    0    0     0     0  326  407   1   1  98   0   0
+ 0  0            0         6477           53          650    0    0     0     0  467  526   1   1  98   0   0
+ 
+ 
+ Blocked process in "procs/b" column are process in uninterruptable sleep. Process which are waiting for an I/O. 
+ High-speed I/O or some other external event. If your system consistentantly has large number , you may
+have disk throughput problems. This doesnt take into account processes waiting for terminal I/O.
+
+Try running iostat see what is going on with your disks it may be that you
+have got heavily used logical volumes on 1 disk when they could be moved.
+```
+</p>
+</details>
+------
+
+> Q. How can blocked queue in vmstat relate to IO debug?
+<details><summary>Ans.</summary>
+<p>
+
+```
+ $ vmstat -SM -w 1 5
+ procs -----------------------memory---------------------- ---swap-- -----io---- -system-- --------cpu--------
+ r  b         swpd         free         buff        cache   si   so    bi    bo   in   cs  us  sy  id  wa  st
+ 1  0            0         6485           53          642    0    0     1     0   24   13   0   0 100   0   0
+ 0  0            0         6478           53          649    0    0     0     0  265  288   0   1  99   0   0
+ 0  0            0         6478           53          649    0    0     0     0  326  407   1   1  98   0   0
+ 0  0            0         6477           53          650    0    0     0     0  467  526   1   1  98   0   0
+ 
+ 
+```
+</p>
+</details>
+------
