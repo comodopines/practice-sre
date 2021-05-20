@@ -67,7 +67,10 @@ ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
 6) Detailed analysis using pmap
  https://stackoverflow.com/a/2816070
 -------
- 
+
+7) How to find detailed analysis on the memory on redhat page:
+  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/tuning_and_optimizing_red_hat_enterprise_linux_for_oracle_9i_and_10g_databases/chap-oracle_9i_and_10g_tuning_guide-memory_usage_and_page_cache
+  
  http://virtualthreads.blogspot.com/2006/02/understanding-memory-usage-on-linux.html
  
  https://stackoverflow.com/a/2816070
@@ -77,6 +80,21 @@ ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
 </p>
 </details>
 ------
+
+> Q. What is difference between buffers and cache?
+<details><summary>Ans.</summary>
+<p>
+
+```
+buffers - (file system metadata)
+cache - (pages with actual contents of files or block devices)
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/tuning_and_optimizing_red_hat_enterprise_linux_for_oracle_9i_and_10g_databases/chap-oracle_9i_and_10g_tuning_guide-memory_usage_and_page_cache
+```
+</p>
+</details>
+------
+
+
 
 > Q. How do I collect JVM data for troubleshooting - stack trace?
 <details><summary>Ans.</summary>
