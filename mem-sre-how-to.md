@@ -1,3 +1,49 @@
+> Q. How do I find which engines are using high memory?
+<details><summary>Ans.</summary>
+<p>
+
+```
+https://www.eurovps.com/faq/how-to-troubleshoot-high-memory-usage-in-linux/
+ 
+1) Look for memory usage using vmstat
+ $ vmstat -SM -w 1 5
+ procs -----------------------memory---------------------- ---swap-- -----io---- -system-- --------cpu--------
+ r  b         swpd         free         buff        cache   si   so    bi    bo   in   cs  us  sy  id  wa  st
+ 1  0            0         6485           53          642    0    0     1     0   24   13   0   0 100   0   0
+ 0  0            0         6478           53          649    0    0     0     0  265  288   0   1  99   0   0
+ 0  0            0         6478           53          649    0    0     0     0  326  407   1   1  98   0   0
+ 0  0            0         6477           53          650    0    0     0     0  467  526   1   1  98   0   0
+ 
+ If Free sections are low or swpd are high then chances are there is memory stress.
+-------
+ 
+ 2) Confirm if free reports free memory
+ $free -m
+              total        used        free      shared  buff/cache   available
+ Mem:           7875         859        6228         303         787        6472
+ Swap:            99           0          99
+-------
+
+ 3) Confirm if memroy average usage has been high on system using sar
+ $echo -n `sar -r -f /var/log/sysstat/sa20 | head -n 1 | awk '{print $4}'`; echo `sar -r -f /var/log/sysstat/sa20  | grep -i Average | sed "s/Average://"`
+
+ 05/20/2021      5990288   6244140   1146084     14.21     55736    805264   6165276     75.49   1314812    383940       160
+
+ First part of cmmand picks date from sar file and prints without newline - echo -n `sar -r -f /var/log/sysstat/sa20 | head -n 1 | awk '{print $4}'`
+ Second part of command just picks the average line and removes "Average" word - echo `sar -r -f /var/log/sysstat/sa20  | grep -i Average | sed "s/Average://"`
+-------
+ 
+ 4) Once the history of usage has been established it can be compared to runnning averages using vmstat or sar -r
+ -------
+ 
+ 5) 
+ 
+
+```
+</p>
+</details>
+------
+
 > Q. How do I collect JVM data for troubleshooting - stack trace?
 <details><summary>Ans.</summary>
 <p>
