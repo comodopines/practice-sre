@@ -4,8 +4,15 @@
 
 ```
 https://www.eurovps.com/faq/how-to-troubleshoot-high-memory-usage-in-linux/
- 
-1) Look for memory usage using vmstat
+  
+ 1) Confirm if free reports free memory
+ $free -m
+              total        used        free      shared  buff/cache   available
+ Mem:           7875         859        6228         303         787        6472
+ Swap:            99           0          99
+-------
+
+ 2) Look for memory usage using vmstat
  $ vmstat -SM -w 1 5
  procs -----------------------memory---------------------- ---swap-- -----io---- -system-- --------cpu--------
  r  b         swpd         free         buff        cache   si   so    bi    bo   in   cs  us  sy  id  wa  st
@@ -15,13 +22,6 @@ https://www.eurovps.com/faq/how-to-troubleshoot-high-memory-usage-in-linux/
  0  0            0         6477           53          650    0    0     0     0  467  526   1   1  98   0   0
  
  If Free sections are low or swpd are high then chances are there is memory stress.
--------
- 
- 2) Confirm if free reports free memory
- $free -m
-              total        used        free      shared  buff/cache   available
- Mem:           7875         859        6228         303         787        6472
- Swap:            99           0          99
 -------
 
  3) Confirm if memroy average usage has been high on system using sar
@@ -34,9 +34,43 @@ https://www.eurovps.com/faq/how-to-troubleshoot-high-memory-usage-in-linux/
 -------
  
  4) Once the history of usage has been established it can be compared to runnning averages using vmstat or sar -r
- -------
+-------
  
- 5) 
+ 5) Use the following command to find the highest memory usage of processes
+ ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
+ 
+   PID  PPID CMD                         %MEM %CPU
+18075 15799 /usr/lib/chromium-browser/c  3.2  4.2
+15821 15794 /usr/lib/chromium-browser/c  2.9 11.8
+16920 15799 /usr/lib/chromium-browser/c  2.9  2.9
+15767   901 /usr/lib/chromium-browser/c  2.9 13.0
+17582 15799 /usr/lib/chromium-browser/c  2.1  4.0
+17541 15799 /usr/lib/chromium-browser/c  1.9 36.3
+17384 15799 /usr/lib/chromium-browser/c  1.9  5.9
+17070 15799 /usr/lib/chromium-browser/c  1.8  7.3
+17282 15799 /usr/lib/chromium-browser/c  1.6  4.4
+
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+   PID  PPID CMD                         %MEM %CPU
+ 17541 15799 /usr/lib/chromium-browser/c  1.9 36.2
+ 15767   901 /usr/lib/chromium-browser/c  2.9 12.9
+ 15821 15794 /usr/lib/chromium-browser/c  2.9 11.8
+ 17070 15799 /usr/lib/chromium-browser/c  1.8  7.3
+ 17384 15799 /usr/lib/chromium-browser/c  1.9  5.9
+ 
+ PS NOTE ON CPU- CPU usage is currently expressed as the percentage of time spent running during the entire lifetime of a process. This is not ideal, and it does 
+ not  conform to the standards that ps otherwise conforms to.  CPU usage is unlikely to add up to exactly 100%.
+ 
+ Depending on how you look at it, ps is not reporting the real memory usage of processes. What it is really doing is showing how much real memory each process would take up if it were the only process running. Of course, a typical Linux machine has several dozen processes running at any given time, which means that the VSZ and RSS numbers reported by ps are almost definitely wrong as it includes the shared memory pages in there.
+ 
+-------
+6) Detailed analysis using pmap
+ https://stackoverflow.com/a/2816070
+-------
+ 
+ http://virtualthreads.blogspot.com/2006/02/understanding-memory-usage-on-linux.html
+ 
+ https://stackoverflow.com/a/2816070
  
 
 ```
