@@ -29,7 +29,10 @@ def possiblePartition(nums, ctotal, target, cindex, seen_sum):
   if ctotal > target or cindex >= int(len(nums)):
     return False
 
-  return possiblePartition(nums,ctotal,target,cindex+1,seen_sum) or possiblePartition(nums, ctotal+nums[cindex], target, cindex+1,seen_sum)
+  state = possiblePartition(nums,ctotal,target,cindex+1,seen_sum) or possiblePartition(nums, ctotal+nums[cindex], target, cindex+1,seen_sum)
+  seen_sum[key]=state
+  return state
+
 
 from datetime import datetime
 
