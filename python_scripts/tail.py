@@ -23,14 +23,18 @@ with open(file, "r") as f1:
   
   lines_seen=0
 
-  while curr <= limit:
-    #if len(lines) > n_line:
-    if lines_seen > n_line:
-      lines.pop()
+  while curr < limit:
+    #if int(len(lines)) >= n_line:
+    if int(lines_seen) >= n_line:
+      lines.pop(0)
+      lines_seen-=1
+    
     lines.append(f1.readline().strip())
+    lines_seen+=1
+    
     f1.seek(0,os.SEEK_CUR)
     curr=f1.tell()
-    lines_seen+=1
+    
 
   for line in lines:
     print(line)
@@ -42,5 +46,3 @@ with open(file, "r") as f1:
       time.sleep(5)
     else:
       print(line)
- 
-
